@@ -1,6 +1,17 @@
-pool: MyAgentPool
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
+# ASP.NET Core
+# Compile y pruebe proyectos de ASP.NET Core con destino .NET Core.
+# agregue pasos que ejecuten pruebas, cree un paquete NuGet, implementen mas:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
 steps:
-- bash: echo hello world
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
